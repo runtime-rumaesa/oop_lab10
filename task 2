@@ -1,0 +1,40 @@
+package lab10;
+
+import java.util.Scanner;
+
+public class factorial {
+    public static long Factorial(int c){
+        long fact=1;
+        for (int i=c;i>0;i--){
+            fact=fact*i;
+        }
+        return fact;
+    }
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+
+        System.out.println("Enter number: ");
+        String a=sc.next();
+
+        try{
+            if (a==null){
+                throw new IllegalArgumentException("Null");
+            }
+            int b=Integer.parseInt(a);
+            if(b<0){
+                throw new IllegalArgumentException("Negative");
+            }
+
+            long factorial= Factorial(b);
+            System.out.println(factorial);
+        } catch (NumberFormatException e){
+            System.out.println("Non numeric");
+        } catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        } catch (ArithmeticException e){
+            System.out.println("Overflow");
+        }
+
+
+    }
+}
