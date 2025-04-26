@@ -1,0 +1,59 @@
+package lab10;
+
+public class InvalidOrderException extends Exception{
+    public InvalidOrderException(String msg){
+        super(msg);
+    }
+}
+===========================================
+package lab10;
+
+import java.util.Scanner;
+
+public class task_8 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String[] items = {"Jersey", "Cap", "Flag"};
+
+        for (String item : items) {
+            System.out.println("\nProcessing order for: " + item);
+
+            System.out.print("Enter quantity: ");
+            String qtyStr = sc.nextLine();
+
+            System.out.print("Enter price: ");
+            String priceStr = sc.nextLine();
+
+            try{
+                if(qtyStr.isEmpty() ){
+                    throw new IllegalArgumentException("No quantity entered");
+                }
+                if(priceStr.isEmpty() ){
+                    throw new IllegalArgumentException("No price entered");
+                }
+                int qty = Integer.parseInt(qtyStr);
+                int price = Integer.parseInt(priceStr);
+                if(qty < 0 | price < 0){
+                    throw new InvalidOrderException("Input is negative");
+                }if(qty >100){
+                    throw new InvalidOrderException("Input quantity is too large");
+                }if(price > 50000){
+                    throw new InvalidOrderException("Input price is too large");
+                }
+                double total = qty * price;
+                System.out.println("Total price for " + item + " is: " + total);
+
+
+            }catch (NumberFormatException e){
+                System.out.println("Input is non numeric");
+            }
+            catch (IllegalArgumentException | InvalidOrderException e){
+                System.out.println(e.getMessage());
+            } finally {
+                System.out.println("Order processing finished for current item.");
+            }
+        }
+
+    }
+}

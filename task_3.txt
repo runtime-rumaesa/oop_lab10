@@ -1,0 +1,33 @@
+package lab10;
+import java.util.Scanner;
+
+public class math {
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter dividend: ");
+        String a=sc.next();
+        System.out.println("Enter divisor: ");
+        String b=sc.next();
+
+        try{
+
+            if(a==null || b==null){
+                throw new IllegalArgumentException("Null values");
+            }
+            int c=Integer.parseInt(a);
+            int d=Integer.parseInt(b);
+
+
+
+            int divide=c/d;
+
+            System.out.println(divide);
+        }catch (ArithmeticException e){
+            System.out.println("cant divide by 0");
+        }catch (NumberFormatException e){
+            System.out.println("Non numeric");
+        }catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
+    }
+}

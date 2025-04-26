@@ -1,0 +1,39 @@
+package lab10;
+
+public class BudgetOverflowException extends Exception{
+    public BudgetOverflowException(String msg){
+        super(msg);
+    }
+}
+===================================================
+package lab10;
+
+import java.util.Scanner;
+
+public class task_7 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter budget: ");
+        String b = sc.nextLine();
+
+        try{
+            if(b == null){
+                throw new IllegalArgumentException("Input is null");
+            } else if (b.isEmpty()) {
+                throw new IllegalArgumentException("Input is empty");
+            }
+            double budget = Double.parseDouble(b);
+            if(budget > 10000000){
+                throw new BudgetOverflowException("Budget exceeds the limit");
+            }
+            System.out.println("Budget accepted: " + budget);
+
+        }catch (NumberFormatException e){
+            System.out.println("Input is non numeric");
+        }catch(IllegalArgumentException | BudgetOverflowException e){
+            System.out.println(e.getMessage());
+        }finally {
+            System.out.println("Budgeting round complete");
+        }
+    }
+}

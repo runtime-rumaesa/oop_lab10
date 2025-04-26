@@ -1,0 +1,41 @@
+package lab10;
+
+public class InvalidEstimateException extends Exception{
+    public InvalidEstimateException(String msg){
+        super(msg);
+    }
+}
+=====================================================
+package lab10;
+
+import java.util.Scanner;
+
+public class task_6 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String[] modules = {"ticketing", "live scores", "merchandise"};
+        for (String m : modules){
+            try {
+                System.out.println("Enter estimated working hours for " + m + ": ");
+                String hourStr = sc.nextLine();
+                if(hourStr == null | hourStr.isEmpty()){
+                    throw new IllegalArgumentException("No input");
+                }
+                int hours = Integer.parseInt(hourStr);
+                if(hours < 0){
+                    throw new InvalidEstimateException("Estimated time is negative");
+                } else if (hours > 100) {
+                    throw new InvalidEstimateException("Estimated time exceeds 100 hours");
+                }
+
+            }catch (NumberFormatException e){
+                System.out.println("Estimated time is Non numeric");
+            }
+            catch (IllegalArgumentException | InvalidEstimateException e) {
+                System.out.println(e.getMessage());
+            }finally {
+                System.out.println("Estimation process completed");
+            }
+        }
+    }
+}

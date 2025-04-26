@@ -1,0 +1,42 @@
+package lab10;
+
+import java.util.Scanner;
+
+public class task_5 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        try{
+            System.out.println("Enter number of overs: ");
+            int overs = sc.nextInt();
+            int total = 0, valid= 0;
+            if(overs > 20){
+                throw new TooManyOversException("Too many overs");
+            }
+            for (int i = 0; i < overs;i++){
+                try{
+                    System.out.println("Enter score for over " + (i+1) + ": ");
+                    String scoreStr = sc.nextLine();
+                    if(scoreStr == null | scoreStr.isEmpty()){
+                        throw new IllegalArgumentException("No score entered");
+                    }
+                    int score = Integer.parseInt(scoreStr);
+                    total += score;
+                    valid += 1;
+                }catch (NumberFormatException e){
+                    System.out.println("Score is non numeric");
+                }catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+            System.out.println("Total score is: " + total);
+            double avg = total/valid;
+            System.out.println("Average score per over: " + avg);
+
+        } catch (TooManyOversException e) {
+            System.out.println(e.getMessage());
+        }finally {
+            System.out.println("Score updated completed");
+        }
+
+    }
+}
